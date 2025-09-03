@@ -42,7 +42,7 @@ spec:
             command:
               - /bin/sh
               - -c
-              - exec pg_isready -U {{ .Values.auth.username | quote }} -h 127.0.0.1 -p 5433
+              - exec pg_isready -U {{ .Values.auth.username | quote }} -h 127.0.0.1 -p 5432
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
@@ -50,7 +50,7 @@ spec:
             command:
               - /bin/sh
               - -c
-              - exec pg_isready -U {{ .Values.auth.username | quote }} -h 127.0.0.1 -p 5433
+              - exec pg_isready -U {{ .Values.auth.username | quote }} -h 127.0.0.1 -p 5432
           initialDelaySeconds: 5
           periodSeconds: 5
         volumeMounts:
@@ -62,7 +62,7 @@ spec:
         imagePullPolicy: {{ .Values.metrics.image.pullPolicy }}
         env:
         - name: DATA_SOURCE_NAME
-          value: "postgresql://{{ .Values.auth.username }}:{{ .Values.auth.password }}@localhost:5433/{{ .Values.auth.database }}?sslmode=disable"
+          value: "postgresql://{{ .Values.auth.username }}:{{ .Values.auth.password }}@localhost:5432/{{ .Values.auth.database }}?sslmode=disable"
         ports:
         - name: metrics
           containerPort: {{ .Values.metrics.service.port }}
